@@ -6,11 +6,14 @@ public abstract class Pessoa {
     protected String rg;
     protected Character sexo;  //ver se é tipado assim mesmo, ou seria Character
     protected String dataNasc;
-
+        
+    
+    //Construtor Vazio
 	public Pessoa() {
 		super();
-	}
-
+	}  
+	
+	//Construtor
 	public Pessoa(String nome, String cpf, String rg, Character sexo, String dataNasc) {
 		super();
 		this.nome = nome;
@@ -19,7 +22,8 @@ public abstract class Pessoa {
 		this.sexo = sexo;
 		this.dataNasc = dataNasc;
 	}
-
+        
+    //Métodos Get e Set
 	public String getNome() {
 		return nome;
 	}
@@ -59,13 +63,14 @@ public abstract class Pessoa {
 	public void setDataNasc(String dataNasc) {
 		this.dataNasc = dataNasc;
 	}
-
+        
+        
+        
+    //To String
 	@Override
 	public String toString() {
-		return "[" + nome + ", " + cpf + ", " + rg + ", " + sexo + ", " + dataNasc  + ", " ;
+		return "[" + nome + ", " + cpf + ", " + rg + ", " + sexo + ", " + dataNasc  + "]" ;
 	}
-	
-
 	
 	
 }
