@@ -5,123 +5,162 @@ import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import pessoas.Medico;
+import pessoas.Paciente;
+
 public class Consulta {
     private String pacienteNome;
     private String medicoNome;
     private String data;
     private String horario;
+    private Integer id=0;
         
-    private ArrayList<Consulta> listConsultas = new ArrayList<>();
+    private ArrayList<Consulta> listConsultas = new ArrayList<>();        
     
-    public Consulta(String pacienteNome, String medicoNome, String data, String horario) {
+    public Consulta() {
+
+    }
+    
+    public Consulta(String pacienteNome, String medicoNome, String data, String horario, Integer id) {
         this.pacienteNome = pacienteNome;
         this.medicoNome = medicoNome;
         this.data = data;
         this.horario = horario;
+        this.id = id;
     }
-
-    public Consulta() {
-
+    
+    //Objetos pre-cadastrados.
+    public void consultasPreCadastradas(){        
+    	id++;
+    	listConsultas.add(new Consulta("Joao", "Felipe", "24/08/24", "09:30",id));
+    	id++;
+        listConsultas.add(new Consulta("Maria", "Aline", "21/06/24", "11:00",id));
     }
-
+    
     public void agendarConsulta(Scanner sc) {
-        System.out.println("Agendamento de consulta: "); 
-        System.out.print("Médico: "); 
+        System.out.println("Informe os dados da nova consulta: ");
+        System.out.println();
+        System.out.print("MEDICO: "); 
         String medico = sc.next();
-        System.out.print("Paciente: ");
+        System.out.print("PACIENTE: ");
         String paciente = sc.next();
-        System.out.print("Data: ");
+        System.out.print("DATA: ");
         String data = sc.next();
-        System.out.print("Horário: ");
+        System.out.print("HORARIO: ");
         String horario = sc.next();
-
-        listConsultas.add(new Consulta(paciente, medico, data, horario));   
-        System.out.println("Consulta agendada!");
+        id++;
+        
+        listConsultas.add(new Consulta(paciente, medico, data, horario, id));   
+        System.out.println();
+        System.out.println("Consulta agendada! ID-" + id);
+        System.out.println();
     }
         
-    public void editarConsulta() {
+    public void editarConsulta() { //-------------REVER!
         Scanner sc = new Scanner(System.in);
-        System.out.println("Informe o nome do Médico responsável: ");
-        String procurarConsulta = sc.next();
+        System.out.println("Informe o ID da consulta: ");
+        Integer idProcurado = sc.nextInt();
 
-        for (Consulta consulta : listConsultas) {
-            if (consulta.getMedicoNome().equals(procurarConsulta)) {
+        for (Consulta consulta : listConsultas) {			
+        	boolean encontrado = false;
+			
+            if (consulta.getId()==idProcurado) {				
+            	encontrado = true;
+				
                 while (true) {
                     try {
-                        System.out.println("Selecione a atualização: ");
-                        System.out.println("1. Atualizar nome do médico");
-                        System.out.println("2. Atualizar nome do paciente");
-                        System.out.println("3. Atualizar data");
-                        System.out.println("4. Atualizar hora");
-                        System.out.println("0. Encerrar operação");
-
+    					System.out.println();
+                        System.out.println("*** ATUALIZAR CONSULTA ***");
+    					System.out.println();
+                        System.out.println("[1] Atualizar MEDICO.");
+                        System.out.println("[2] Atualizar PACIENTE.");
+                        System.out.println("[3] Atualizar DATA.");
+                        System.out.println("[4] Atualizar HORARIO.");
+						System.out.println();	
+                        System.out.println("[0] Voltar para o MENU PRINCIPAL.");
+						System.out.println();							
+						System.out.print("Informe a opcao desejada:");
+	                       
                         int selecao = sc.nextInt();
-
+                        System.out.println();
+                        
                         switch (selecao) {
                             case 1:
-                                System.out.println("Informe o novo nome do médico: ");
+                                System.out.println("Informe o novo nome do MEDICO: ");
                                 String novoMedicoNome = sc.next();
                                 consulta.setMedicoNome(novoMedicoNome);
                                 break;
                             case 2:
-                                System.out.println("Informe o novo nome do paciente: ");
+                                System.out.println("Informe o novo nome do PACIENTE: ");
                                 String novoPacienteNome = sc.next();
                                 consulta.setPacienteNome(novoPacienteNome);
                                 break;
                             case 3:
-                                System.out.println("Informe a nova data: ");
+                                System.out.println("Informe a nova DATA: ");
                                 String novaData = sc.next();
                                 consulta.setData(novaData);
                                 break;
                             case 4:
-                                System.out.println("Informe o novo horário: ");
+                                System.out.println("Informe o novo HORARIO: ");
                                 String novoHorario = sc.next();
                                 consulta.setHorario(novoHorario);
                                 break;
                             case 0:
                                 System.out.println("Operação encerrada.");
-                                sc.close(); // Fechar o Scanner
+                                sc.close();
                                 return;
                             default:
-                                System.out.println("Opção inválida.");
+                                System.out.println("Opcao invalida, tente novamente.");
                         }
                     } catch (InputMismatchException e) {
-                        System.out.println("Entrada inválida. Por favor, insira um número.");
-                        sc.next(); // Limpa o buffer do scanner
+                        System.out.println("Entrada invalida. Por favor, insira um número.");
+                        sc.next();
                     }
                 }
             }
+			
+            if (!encontrado) {
+				continue;
+			}
+            
+            System.out.println("Consulta nao encontrada.");
+            sc.close();
+            
         }
-        System.out.println("Consulta não encontrada.");
-        sc.close(); // Fechar o Scanner
     }
 
     public void excluirConsulta() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Informe o nome do Médico responsável pela consulta a ser excluída:");
-        String medicoExcluir = sc.next();
+        System.out.println("Informe o ID da consulta a ser excluida:");
+        Integer idExcluir = sc.nextInt();
 
         Iterator<Consulta> it = listConsultas.iterator();
         while (it.hasNext()) {
             Consulta consulta = it.next();
-            if (consulta.getMedicoNome().equals(medicoExcluir)) {
+            if (consulta.getId().equals(idExcluir)) {
                 it.remove();
-                System.out.println("Consulta excluída com sucesso.");
-                sc.close(); // Fechar o Scanner
+                System.out.println("Consulta excluida com sucesso.");
+                sc.close();
                 return;
             }
         }
-        System.out.println("Consulta não encontrada.");
-        sc.close(); // Fechar o Scanner
+        System.out.println("Consulta nao encontrada.");
+        sc.close();
     }
 
-    public void listarConsultas() {
-        System.out.println("Lista de consultas:");
-        for (Consulta consulta : listConsultas) {
-            System.out.println(consulta);
-        }
+    public void relacaoConsultas() {
+       	System.out.println("---------------- RELACAO DE CONSULTAS ----------------");
+	    System.out.println();
+	    
+        for(Consulta c: listConsultas) {
+            System.out.println(c);
+        }  
+        
+	    System.out.println();
+	    System.out.println("------------------------------------------------------");
+	    System.out.println();
     }
-
+    
     public String getPacienteNome() {
         return pacienteNome;
     }
@@ -152,10 +191,18 @@ public class Consulta {
 
     public void setHorario(String horario) {
         this.horario = horario;
-    }
+    }   
 
-    @Override
+    public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@Override
     public String toString() {
-        return "[" + pacienteNome + ", " + medicoNome + ", " + data + ", " + horario + "]";
+        return "[" + "ID-" + id + ", Paciente: " + pacienteNome + ", Medico: " + medicoNome + ", " + data + ", " + horario + "]";
     }   
 }

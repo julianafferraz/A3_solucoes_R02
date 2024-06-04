@@ -8,8 +8,10 @@ public class Paciente extends Pessoa {
 
 	private String celular;   
 	private String email;
-
-	//Classe Scanner	
+	
+  
+    public ArrayList<Paciente> listPacientes = new ArrayList<>();
+	
     Scanner sc = new Scanner (System.in);
         
     //Construtor Vazio
@@ -18,177 +20,188 @@ public class Paciente extends Pessoa {
 	}
         
         
-    //Construtor
+    //Construtor completo
 	public Paciente(String nome, String cpf, String rg, Character sexo, String dataNasc, String celular, String email) {
 		super(nome, cpf, rg, sexo, dataNasc);
 		this.celular = celular;
 		this.email = email;
 	}
-        
-        
-    //Declaracao da arrayList para armazenar todos os objetos cadastrados  
-    public ArrayList<Paciente> listPacientes = new ArrayList<>();
-       
-        
+         
+    //Objetos pre-cadastrados.
+    public void pacientesPreCadastrados(){            
+        listPacientes.add(new Paciente("Amos Medeiros", "11111111111", "1111111111", 'M', "03/01/2000", "999999999", "email@email"));
+        listPacientes.add(new Paciente("Juliana Ferraz", "22222222222", "2222222222", 'F', "28/12/1992", "999999999", "email@email"));
+        listPacientes.add(new Paciente("Miguel Reis", "33333333333", "3333333333", 'M', "03/01/2000", "999999999", "email@email"));
+        listPacientes.add(new Paciente("Nair Rosa", "44444444444", "4444444444", 'F', "03/01/2000", "999999999", "email@email"));
+        listPacientes.add(new Paciente("Yule Lima", "55555555555", "5555555555", 'M', "03/01/2000", "999999999", "email@email"));
+        listPacientes.add(new Paciente("Joao Silva", "66666666666", "6666666666", 'M', "03/01/2000", "999999999", "email@email"));
+        listPacientes.add(new Paciente("Maria Souza", "777777777777", "77777777777", 'F', "03/01/2000", "999999999", "email@email"));
+    } 
+    
     //REVER	- metodo personalizado para cadastrar novo paciente
     public void cadastrarPaciente(Scanner sc) {
         try {
             System.out.println("Informe os dados do novo paciente: ");
-            System.out.print("Nome: ");
-            String nome = sc.next();
+            sc.nextLine();
+            System.out.print("NOME: ");
+            String nome = sc.nextLine();
             this.nome = nome;
             System.out.print("CPF: ");
-            String cpf = sc.next();
+            String cpf = sc.nextLine();
             this.cpf = cpf;
             System.out.print("RG: ");
-            String rg = sc.next();
+            String rg = sc.nextLine();
             this.rg = rg;
-            System.out.print("Sexo: ");
-            Character sexo = sc.next().charAt(0);
+            System.out.print("SEXO: ");
+            Character sexo = sc.nextLine().charAt(0);
             this.sexo = sexo;
-            System.out.print("Data de Nascimento: ");
-            String dataNasc = sc.next();
+            System.out.print("DATA DE NASCIMENTO: ");
+            String dataNasc = sc.nextLine();
             this.dataNasc = dataNasc;
-            System.out.print("Celular: ");
-            String celular = sc.next();
+            System.out.print("CELULAR: ");
+            String celular = sc.nextLine();
             this.celular = celular;		
-            System.out.print("Email: ");
-            String email = sc.next();
-            this.email = email;	
-
-                  
-                    
+            System.out.print("EMAIL: ");
+            String email = sc.nextLine();
+            this.email = email;		
+                   
             listPacientes.add(new Paciente(this.nome,this.cpf,this.rg,this.sexo,this.dataNasc,this.celular,this.email)); 
 
-
+            System.out.println(); 
             System.out.println("Paciente cadastrado: ");
             System.out.println(this); 
             System.out.println(); 
 
         } catch (InputMismatchException e) {
-            System.out.println("Erro: Entrada inválida.");
+            System.out.println("ERRO: Entrada invalida.");
         }              
     }   
         
-    public void editarCadastroDePaciente(){
-            
-        System.out.println("Informe o nome do paciente: ");
+    public void editarPaciente(){
+		boolean encontrado = false;           
+        System.out.print("Informe o nome do paciente: ");
         String procurarPaciente =sc.next();
         
-        int count=0;
+
               
         for (int i = 0; i < listPacientes.size(); i++) {
             if (listPacientes.get(i).getNome().equals(procurarPaciente)) {  
-                count++;
-                while(true){
-                    System.out.println("Selecione a atualização: "); 
-                    System.out.println("[1] Atualizar nome.");
+
+            	encontrado = true;
+
+				while(true){
+                    System.out.println();
+                    System.out.println("*** ATUALIZAR PACIENTE ***"); 
+                    System.out.println(); 
+                    System.out.println("[1] Atualizar NOME.");
                     System.out.println("[2] Atualizar CPF.");
                     System.out.println("[3] Atualizar RG.");
-                    System.out.println("[4] Atualizar sexo.");
-                    System.out.println("[5] Atualizar Data de Nascimento.");
-                    System.out.println("[6] Atualizar celular.");
-                    System.out.println("[7] Atualizar email.");
-                    System.out.println("[0] Encerrar operação.");
+                    System.out.println("[4] Atualizar SEXO.");
+                    System.out.println("[5] Atualizar DATA NASCIMENTO.");
+                    System.out.println("[6] Atualizar CELULAR.");
+                    System.out.println("[7] Atualizar EMAIL.");
+                    System.out.println();                     
+                    System.out.println("[0] Voltra para o MENU PRINCIPAL.");
+                    System.out.println(); 
 
+                    System.out.print("Informe a opcao desejada:");                     
                     int selecao=sc.nextInt();
+                    System.out.println(); 
+                    
+                    switch (selecao) {
 
-                        switch (selecao) {
+                    	case 1:
+                            System.out.print("Informe o novo NOME:");
+                            String nome = sc.next();
+                            listPacientes.get(i).setNome(nome);
+                            break;
+                    	case 2:
+                            System.out.print("Informe o novo CPF:");
+                            String cpf = sc.next();
+                            listPacientes.get(i).setCpf(cpf);
+                            break;
+                        case 3:
+                            System.out.print("Informe o novo RG:");
+                            String rg = sc.next();
+                            listPacientes.get(i).setRg(rg);
+                            break;
+                        case 4:
+                            System.out.print("Informe o novo SEXO:");
+                            Character sexo = sc.next().charAt(0);
+                            listPacientes.get(i).setSexo(sexo);
+                            break;
+                        case 5:
+                            System.out.print("Informe a nova DATA DE NASCIMENTO:");
+                            String dataNasc = sc.next();
+                            listPacientes.get(i).setDataNasc(dataNasc);
+                            break;
+                        case 6:
+                            System.out.print("Informe o novo CELULAR:");
+                            String celular = sc.next();
+                            listPacientes.get(i).setCelular(celular);
+                            break;
+                        case 7:
+                            System.out.print("Informe o novo EMAIL:");
+                            String email = sc.next();
+                            listPacientes.get(i).setEmail(email);
+                        	break;
+                        case 0:                              
+                        	return;
 
-                            case 1:
-                                System.out.println("Informe o novo dado cadastral");
-                                System.out.print("Nome: ");
-                                String nome = sc.next();
-                                listPacientes.get(i).setNome(nome);
-                                break;
-                            case 2:
-                                System.out.println("Informe o novo dado cadastral");
-                                System.out.print("CPF: ");
-                                String cpf = sc.next();
-                                listPacientes.get(i).setCpf(cpf);
-                                break;
-                            case 3:
-                                System.out.println("Informe o novo dado cadastral");
-                                System.out.print("RG: ");
-                                String rg = sc.next();
-                                listPacientes.get(i).setRg(rg);
-                                break;
-                            case 4:
-                                System.out.println("Informe o novo dado cadastral");
-                                System.out.print("Sexo: ");
-                                Character sexo = sc.next().charAt(0);
-                                listPacientes.get(i).setSexo(sexo);
-                                break;
-                            case 5:
-                                System.out.println("Informe o novo dado cadastral");
-                                System.out.print("Data de Nascimento: ");
-                                String dataNasc = sc.next();
-                                listPacientes.get(i).setDataNasc(dataNasc);
-                                break;
-                            case 6:
-                                System.out.println("Informe o novo dado cadastral");
-                                System.out.print("Celular: ");
-                                String celular = sc.next();
-                                listPacientes.get(i).setCelular(celular);
-                                break;
-                            case 7:
-                                System.out.println("Informe o novo dado cadastral");
-                                System.out.print("Email: ");
-                                String email = sc.next();
-                                listPacientes.get(i).setEmail(email);
-                                break;
-                            case 0:
-                                System.out.println("Operação encerrada.");
-                                
-                                return;
+                        default:
+                        	System.out.println("Opcao invalida, tente novamente.");
+                            break;
 
-                            default:
-                                break;
-
-                        }
+                    }
                             System.out.println("Paciente atualizado com sucesso!");
-                        }
+                            System.out.println();
+				}
 
             
             } 
-            if (count==0){
-                System.out.println("Paciente não encontrado.");
+            else if(!encontrado) {
+            	continue;
             }
-                                        
+            
+            System.out.println("Paciente nao encontrado.");
+            System.out.println();                                     
         }  
     }
             
     public void excluirPaciente(){
-        System.out.println("Informe o CPF:"); 
+        System.out.print("Informe o CPF do Paciente a ser excluido:"); 
         String excluirPaciente=sc.next();
 
         for (int i = 0; i < listPacientes.size(); i++) {
             if (listPacientes.get(i).getCpf().equals(excluirPaciente)) {
                 listPacientes.remove(i);
             }
-        } 
+        }
+        System.out.println("Paciente excluido com sucesso."); 
+        System.out.println();
     }   
     
     // Método para buscar específicamente ou listar relação de pacientes
     public void relacaoPacientes() {
         int opcao;
        
-        System.out.println("Escolha uma das opções:");
+        System.out.println("** LISTAR PACIENTE ***");
         System.out.println();
-        System.out.println("[1] Buscar Paciente.");
-        System.out.println("[2] Imprimir relação de pacientes.");
+        System.out.println("[1] Buscar Paciente por NOME.");
+        System.out.println("[2] Imprimir relação de pacientes cadastrados.");
         System.out.println();
-        System.out.print("Selecione: ");
+        System.out.print("Informe a opcao desejada: ");
         opcao =sc.nextInt();
-
+        System.out.println();
+        
         if (listPacientes.isEmpty()) {
-            System.out.println("Lista de pacientes vazia.");
+            System.out.println("Nao ha pacientes cadastrados.");
             return;
         } else {
             switch(opcao) {
                 
             case 1:
-                System.out.println("Insira o nome de um Paciente: ");
+                System.out.print("Insira o NOME de um Paciente: ");
                 
                 String buscar = sc.next();
                 boolean encontrado = false;
@@ -202,16 +215,18 @@ public class Paciente extends Pessoa {
                     }
                 }
                 if (!encontrado) {
-                    System.out.println("Paciente não encontrado.");
+                    System.out.println("Paciente nao encontrado.");
                 }
                 break;
             case 2: 
-                System.out.println("Lista de Pacientes:");
-            
+                System.out.println("---------- RELACAO DE PACIENTES CADASTRADOS ----------");
+                System.out.println();
+                
                 for (int i = 0; i < listPacientes.size(); i++) {
                     System.out.println(listPacientes.get(i));		
                     System.out.println();
                 }
+                System.out.println("-----------------------------------------------------");
                 break;
             default: //caso escolham uma opcao inexistente
             System.out.println("Opção inválida, tente novamente.");
@@ -219,28 +234,6 @@ public class Paciente extends Pessoa {
             }
         }    
     }
-
-    //Objetos cadastrados atomaticamnete.
-    public void teste(){
-             
-        System.out.println("Cadastramento automático para teste: ");
-        System.out.println("-----------------------------------------------------------------");
-        listPacientes.add(new Paciente("Amos", "11111111111", "1111111111", 'M', "03/01/2000", "999999999", "email@email"));
-        listPacientes.add(new Paciente("Juliana", "22222222222", "2222222222", 'F', "28/12/1992", "999999999", "email@email"));
-        listPacientes.add(new Paciente("Miguel", "33333333333", "3333333333", 'M', "03/01/2000", "999999999", "email@email"));
-        listPacientes.add(new Paciente("Nair", "44444444444", "4444444444", 'F', "03/01/2000", "999999999", "email@email"));
-        listPacientes.add(new Paciente("Yule", "55555555555", "5555555555", 'M', "03/01/2000", "999999999", "email@email"));
-        listPacientes.add(new Paciente("Joao", "66666666666", "6666666666", 'M', "03/01/2000", "999999999", "email@email"));
-        listPacientes.add(new Paciente("Maria", "777777777777", "77777777777", 'F', "03/01/2000", "999999999", "email@email"));
-
-        for(Paciente p: listPacientes) {
-            System.out.println(p);
-        }
-
-        System.out.println("-----------------------------------------------------------------");
-        System.out.println();
-    }
-        
         
     //Métodos Get e Set
 	public String getCelular() {

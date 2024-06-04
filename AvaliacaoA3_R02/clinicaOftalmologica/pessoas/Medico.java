@@ -10,9 +10,10 @@ import java.util.Scanner;
 public class Medico extends Pessoa {
 
 	private String crm;
-	private String espec;
+	private String subspec;
 	
     private ArrayList<Medico> listMedicos = new ArrayList<>();
+    
     private Scanner sc = new Scanner(System.in);
 
     // Construtor vazio
@@ -20,51 +21,59 @@ public class Medico extends Pessoa {
         super();
     }
 
-    // Construtor com parâmetros
-    public Medico(String nome, String cpf, String rg, char sexo, String dataNasc, String crm, String espec) {
+    // Construtor completo
+    public Medico(String nome, String cpf, String rg, char sexo, String dataNasc, String crm, String subspec) {
         super(nome, cpf, rg, sexo, dataNasc);
         this.crm = crm;
-        this.espec = espec;
+        this.subspec = subspec;
     }
-	
+    
+    //Objetos pre-cadastrados. 	
+    public void medicosPreCadastrados(){  
+	listMedicos.add(new Medico("Medico Joao", "11111111111", "1111111111", 'M', "03/01/2000", "999999999", "catarata"));
+	listMedicos.add(new Medico("Medica Maria", "22222222222", "2222222222", 'F', "28/12/1992", "999999999", "glaucoma"));
+    }
+    
 	// Método de cadastrar médico
     public void cadastrarMedico(Scanner sc) {
         try {
             System.out.println("Informe os dados do novo médico:");
-            System.out.print("Nome: ");
-            String nome = sc.next();
-            sc.next();
+            sc.nextLine();
+            System.out.print("NOME: ");
+            String nome = sc.nextLine();
+            this.nome = nome;
             System.out.print("CPF: ");
-            String cpf = sc.next();
-            sc.next();
+            String cpf = sc.nextLine();
+            this.cpf = cpf;
             System.out.print("RG: ");
-            String rg = sc.next();
-            sc.next();
-            System.out.print("Sexo: ");
-            char sexo = sc.next().charAt(0);
-            sc.next();
-            System.out.print("Data de Nascimento: ");
-            String dataNasc = sc.next();
-            sc.next();
+            String rg = sc.nextLine();
+            this.rg = rg;
+            System.out.print("SEXO: ");
+            Character sexo = sc.nextLine().charAt(0);
+            this.sexo = sexo;
+            System.out.print("DATA DE NASCIMENTO: ");
+            String dataNasc = sc.nextLine();
+            this.dataNasc = dataNasc;
             System.out.print("CRM: ");
-            String crm = sc.next();
-            sc.next();
-            System.out.print("Especializacao: ");
-            String espec = sc.next();
-            sc.next();
+            String crm = sc.nextLine();
+            System.out.print("SUBESPECIALIDADE: ");
+            String subspec = sc.nextLine();
 
-            listMedicos.add(new Medico(nome, cpf, rg, sexo, dataNasc, crm, espec)); 
+            listMedicos.add(new Medico(nome, cpf, rg, sexo, dataNasc, crm, subspec)); 
 
             System.out.println("Médico cadastrado!");
+            System.out.println();
+            
         } catch (InputMismatchException e) {
             System.out.println("Entrada inválida. Certifique-se de inserir o tipo correto de dados.");
             sc.nextLine();
         }
     }
 	//Método de editar cadastro de médicos
-    public void editarCadastroDeMedico() {
-			System.out.println("Informe o nome do médico:");
+    public void editarMedico() {
+			System.out.print("Informe o nome do médico:");
 			String procurarMedico = sc.next();
+			
 			boolean encontrado = false;
 	
 			for (int i = 0; i < listMedicos.size(); i++) {
@@ -72,88 +81,87 @@ public class Medico extends Pessoa {
 					encontrado = true;
 					while (true) {
 						try {
-							// Tentativa de atualizar os dados do médico
-							System.out.println("Selecione a atualização:");
-							System.out.println("[1] Atualizar nome.");
+							System.out.println();
+							System.out.println("*** ATUALIZAR MEDICO EXISTENTE ***");
+					 		System.out.println();
+							System.out.println("[1] Atualizar NOME.");
 							System.out.println("[2] Atualizar CPF.");
 							System.out.println("[3] Atualizar RG.");
-							System.out.println("[4] Atualizar sexo.");
-							System.out.println("[5] Atualizar Data de Nascimento.");
+							System.out.println("[4] Atualizar SEXO.");
+							System.out.println("[5] Atualizar DATA NASCIMENTO.");
 							System.out.println("[6] Atualizar CRM.");
-							System.out.println("[7] Atualizar especializacao.");
-							System.out.println("[0] Encerrar operação.");
-	
+							System.out.println("[7] Atualizar ESPECIALIZACAO.");
+							System.out.println();	
+							System.out.println("[0] Voltar para o MENU PRINCIPAL.");
+							System.out.println();							
+							System.out.print("Informe a opcao desejada:");
+
+							
 							int selecao = sc.nextInt();
-	
+							System.out.println();	
 							
 							switch (selecao) {
 								case 1:
-								System.out.println("Informe o novo dado cadastral");
-	  
-								System.out.print("Nome: ");
+								System.out.print("Informe o novo NOME:");
 								String nome = sc.next();
 								listMedicos.get(i).setNome(nome);
 								break;
 							case 2:
-								System.out.println("Informe o novo dado cadastral");
-								System.out.print("CPF: ");
+								System.out.print("Informe o novo CPF:");
 								String cpf = sc.next();
 								listMedicos.get(i).setCpf(cpf);
 								break;
 							case 3:
-								System.out.println("Informe o novo dado cadastral");
-								System.out.print("RG: ");
+								System.out.print("Informe o novo RG:");
 								String rg = sc.next();
 								listMedicos.get(i).setRg(rg);
 								break;
 							case 4:
-								System.out.println("Informe o novo dado cadastral");
-								System.out.print("Sexo: ");
+								System.out.print("Informe o novo SEXO:");
 								Character sexo = sc.next().charAt(0);
 								listMedicos.get(i).setSexo(sexo);
 								break;
 							case 5:
-								System.out.println("Informe o novo dado cadastral");
-								System.out.print("Data de Nascimento: ");
+								System.out.print("Informe a nova DATA DE NASCIMENTO:");
 								String dataNasc = sc.next();
 								listMedicos.get(i).setDataNasc(dataNasc);
 								break;
 							case 6:
-								System.out.println("Informe o novo dado cadastral");
-								System.out.print("CRM: ");
+								System.out.print("Informe o novo CRM:");
 								String crm = sc.next();
 								listMedicos.get(i).setCrm(crm);
 								break;
 							case 7:
-								System.out.println("Informe o novo dado cadastral");
-								System.out.print("Especializacao: ");
-								String espec = sc.next();
-								listMedicos.get(i).setCrm(espec);
+								System.out.print("Informe a nova SUBESPECIALIDADE:");
+								String subspec = sc.next();
+								listMedicos.get(i).setCrm(subspec);
 								break;
 							case 0:
-								System.out.println("Operação encerrada.");
+								System.out.println("Operacao encerrada.");
 								return;
 	  
 							default:
+                                System.out.println("Opcao invalida, tente novamente.");
 								break;
 							}
 						} catch (InputMismatchException e) {
-							// Se o usuário inserir uma opção inválida, exibe uma mensagem de erro
-							System.out.println("Opção inválida. Insira um número.");
-							sc.nextLine(); // Limpa o buffer do scanner
+							System.out.println("Entrada invalida. Por favor, insira um número.");
+							sc.nextLine();
 						}
 					}
 				}
+				
+				if (!encontrado) {
+					continue;
+				}
+
+				System.out.println("Medico nao encontrado.");
+				System.out.println();
 			}
-			if (!encontrado) {
-				// Se o médico não for encontrado, exibe uma mensagem
-				System.out.println("Médico não encontrado.");
-			}
-		
     }
 
     public void excluirMedico() {
-        System.out.println("Informe o nome do Médico a ser excluído:");
+        System.out.print("Informe o NOME do Medico a ser excluido:");
         String medicoExcluir = sc.next();
 
         Iterator<Medico> it = listMedicos.iterator();
@@ -161,20 +169,71 @@ public class Medico extends Pessoa {
             Medico medico = it.next();
             if (medico.getNome().equals(medicoExcluir)) {
                 it.remove();
-                System.out.println("Médico excluído com sucesso.");
+                System.out.println("Medico excluido com sucesso.");
+                System.out.println();
                 return;
             }
         }
-        System.out.println("Médico não encontrado.");
+        System.out.println("Medico nao encontrado.");
     }
 
-    public void listarMedico() {
-        System.out.println("Lista de Médicos:");
-        for (Medico medico : listMedicos) {
-            System.out.println(medico);
-        }
-    }
+ // Método para buscar especificamente ou listar relação de pacientes
+ 	public void relacaoMedicos() {
+ 		int opcao;
+ 	
+ 		System.out.println("*** LISTAR MEDICO ***");
+ 		System.out.println();
+ 		System.out.println("[1] Buscar Médico por NOME.");
+ 		System.out.println("[2] Imprimir relação de Medicos cadastrados.");
+ 		System.out.println();
+ 		System.out.print("Informe a opcao desejada: ");
+ 		opcao =sc.nextInt();
+ 		System.out.println();
+ 		
+ 		if (listMedicos.isEmpty()) {
+ 			System.out.println("Nao ha Medicos cadastrados!");
+ 			System.out.println();
+ 			return;
+ 		} else {
+ 			switch(opcao) {
+ 				
+ 			case 1:
+ 				System.out.print("Insira o NOME do Medico: ");
+ 				
+ 				String buscar = sc.next();
+ 				boolean encontrado = false;
+ 				
+ 				for (Medico medico: listMedicos){
+ 					if (medico.getNome().equalsIgnoreCase(buscar)) {
+ 						encontrado = true;
+ 						System.out.println("Medico encontrado:");
+ 						System.out.println(medico);
+ 					}
+ 				}
 
+ 				if (!encontrado) {
+ 					System.out.println("Medico nao encontrado.");				
+ 				}
+ 				break; 
+ 			
+ 			case 2: 
+				System.out.println("---------- RELACAO DE MEDICOS ----------");
+ 			
+			    for(Medico m: listMedicos) {
+			    	System.out.println(m);
+			    }
+			    
+				System.out.println("------------------------------------------------------");
+				System.out.println();
+ 				break;
+
+ 			default: //caso escolham uma opcao inexistente
+ 				System.out.println("Opcao invalida, tente novamente.");
+ 				break;
+ 			}
+ 		}    
+ 	}
+    
     public String getCrm() {
         return crm;
     }
@@ -184,11 +243,11 @@ public class Medico extends Pessoa {
     }
 
     public String getEspec() {
-        return espec;
+        return subspec;
     }
 
-    public void setEspec(String espec) {
-        this.espec = espec;
+    public void setEspec(String subspec) {
+        this.subspec = subspec;
     }
 
     @Override

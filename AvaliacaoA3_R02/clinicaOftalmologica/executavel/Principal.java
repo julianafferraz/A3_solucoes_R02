@@ -14,16 +14,21 @@ public class Principal {
        Medico novoMedico = new Medico();
        Consulta novaConsulta = new Consulta();	
        
+
+       
        // Classe Scanner	
        try (Scanner sc = new Scanner(System.in)) {
-           novoPaciente.teste(); // Para iniciar o sistema cadastrando automaticamente 7 objetos da classe Paciente.
+    	   novoPaciente.pacientesPreCadastrados();
+    	   novoMedico.medicosPreCadastrados();
+    	   novaConsulta.consultasPreCadastradas();
            
            while (true) {
-               System.out.println("*** MENU ***");	
+        	   System.out.println();  
+               System.out.println("***** MENU PRINCIPAL *****");	
                System.out.println();              
                System.out.println("[1] Cadastrar novo paciente.");	
                System.out.println("[2] Editar cadastro de paciente existente.");
-               System.out.println("[3] Excluir Cadastro de paciente");
+               System.out.println("[3] Excluir paciente");
                System.out.println("[4] Ver relação de pacientes.");
            
                System.out.println(); 
@@ -54,7 +59,7 @@ public class Principal {
                        break;
                    
                    case 2: // Editar cadastro de paciente
-                       novoPaciente.editarCadastroDePaciente();
+                       novoPaciente.editarPaciente();
                        break;
                    
                    case 3: // Excluir paciente
@@ -70,7 +75,7 @@ public class Principal {
                        break;
                    
                    case 6: // Editar cadastro de médico
-                       novoMedico.editarCadastroDeMedico();
+                       novoMedico.editarMedico();
                        break;
                    
                    case 7: // Excluir médico
@@ -78,7 +83,7 @@ public class Principal {
                        break;
                    
                    case 8: // Ver relação de médicos
-                       novoMedico.listarMedico();
+                       novoMedico.relacaoMedicos();
                        break;
                    
                    case 9: // Cadastrar nova consulta
@@ -94,7 +99,7 @@ public class Principal {
                        break;
                    
                    case 12: // Ver relação de consultas
-                       novaConsulta.listarConsultas();
+                       novaConsulta.relacaoConsultas();
                        break;
                    
                    case 0: // Encerrar programa
