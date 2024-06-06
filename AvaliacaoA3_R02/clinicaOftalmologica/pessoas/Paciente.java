@@ -185,7 +185,7 @@ public class Paciente extends Pessoa {
     public void relacaoPacientes() {
         int opcao;
        
-        System.out.println("** LISTAR PACIENTE ***");
+        System.out.println("** LISTA PACIENTES ***");
         System.out.println();
         System.out.println("[1] Buscar Paciente por NOME.");
         System.out.println("[2] Imprimir relação de pacientes cadastrados.");
@@ -200,37 +200,45 @@ public class Paciente extends Pessoa {
         } else {
             switch(opcao) {
                 
-            case 1:
-                System.out.print("Insira o NOME de um Paciente: ");
+            	case 1:
+            		sc.nextLine();
+            		System.out.print("Insira o NOME de um Paciente: ");                
+            		String buscar = sc.nextLine();
                 
-                String buscar = sc.next();
-                boolean encontrado = false;
+            		boolean encontrado = false;
                 
-                for (Paciente p: listPacientes){
-                    if (p.getNome().equalsIgnoreCase(buscar)) {
-                        encontrado = true;
-                        System.out.println("Paciente encontrado:");
-                        System.out.println(p);
-                        
-                    }
-                }
-                if (!encontrado) {
-                    System.out.println("Paciente nao encontrado.");
-                }
-                break;
-            case 2: 
-                System.out.println("---------- RELACAO DE PACIENTES CADASTRADOS ----------");
-                System.out.println();
+            		for (Paciente p: listPacientes){
+            			if (p.getNome().equalsIgnoreCase(buscar)) {
+                      
+            				encontrado = true;
+            				
+            				System.out.println();
+            				System.out.print("Paciente encontrado:");
+            				System.out.println(p); 
+            				break;
+            			}                   
+            		}
+            		
+            		if (!encontrado) {
+            			System.out.println();
+            			System.out.println("Paciente nao encontrado!");
+            		}
+            		break;
+            		
+            	case 2: 
+            		System.out.println("---------- RELACAO DE PACIENTES CADASTRADOS ----------");
+            		System.out.println();
                 
-                for (int i = 0; i < listPacientes.size(); i++) {
-                    System.out.println(listPacientes.get(i));		
-                    System.out.println();
-                }
-                System.out.println("-----------------------------------------------------");
-                break;
-            default: //caso escolham uma opcao inexistente
-            System.out.println("Opção inválida, tente novamente.");
-                break;
+            		for (int i = 0; i < listPacientes.size(); i++) {
+            			System.out.println(listPacientes.get(i));		
+            			System.out.println();
+            		}
+            		System.out.println("-----------------------------------------------------");
+            		break;
+            		
+            	default: //caso escolham uma opcao inexistente
+            		System.out.println("Opção inválida, tente novamente.");
+            		break;
             }
         }    
     }

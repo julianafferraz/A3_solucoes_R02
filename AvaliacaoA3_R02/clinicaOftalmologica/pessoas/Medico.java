@@ -177,11 +177,11 @@ public class Medico extends Pessoa {
         System.out.println("Medico nao encontrado.");
     }
 
- // Método para buscar especificamente ou listar relação de pacientes
+ // Método para buscar Medico especifico ou listar relação de Medicos
  	public void relacaoMedicos() {
  		int opcao;
  	
- 		System.out.println("*** LISTAR MEDICO ***");
+ 		System.out.println("*** LISTA MEDICOS ***");
  		System.out.println();
  		System.out.println("[1] Buscar Médico por NOME.");
  		System.out.println("[2] Imprimir relação de Medicos cadastrados.");
@@ -198,22 +198,27 @@ public class Medico extends Pessoa {
  			switch(opcao) {
  				
  			case 1:
+        		sc.nextLine();
  				System.out.print("Insira o NOME do Medico: ");
  				
- 				String buscar = sc.next();
+ 				String buscar = sc.nextLine();
+ 		        
  				boolean encontrado = false;
  				
  				for (Medico medico: listMedicos){
  					if (medico.getNome().equalsIgnoreCase(buscar)) {
+ 						
  						encontrado = true;
- 						System.out.println("Medico encontrado:");
+ 						
+ 						System.out.println();
+ 						System.out.print("Medico encontrado:");
  						System.out.println(medico);
- 					}
+ 					}	 							
  				}
-
- 				if (!encontrado) {
- 					System.out.println("Medico nao encontrado.");				
- 				}
+	 			if (!encontrado) {
+	 				System.out.println();
+ 	 				System.out.println("Medico nao encontrado!");	
+ 	 			}
  				break; 
  			
  			case 2: 

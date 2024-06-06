@@ -56,7 +56,7 @@ public class Consulta {
         System.out.println();
     }
         
-    public void editarConsulta() { //-------------REVER!
+    public void editarConsulta() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Informe o ID da consulta: ");
         Integer idProcurado = sc.nextInt();
