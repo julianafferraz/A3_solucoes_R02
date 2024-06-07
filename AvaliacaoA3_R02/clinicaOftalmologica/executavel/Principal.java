@@ -14,10 +14,10 @@ public class Principal {
        Medico novoMedico = new Medico();
        Consulta novaConsulta = new Consulta();	
        
-
-       
-       // Classe Scanner	
+    	
        try (Scanner sc = new Scanner(System.in)) {
+    	   
+    	   //puxar lista de objetos pre cadastrados
     	   novoPaciente.pacientesPreCadastrados();
     	   novoMedico.medicosPreCadastrados();
     	   novaConsulta.consultasPreCadastradas();
